@@ -52,9 +52,14 @@ void RoutePlanner::AddNeighbors(RouteModel::Node *current_node) {
 // - Create a pointer to the node in the list with the lowest sum.
 // - Remove that node from the open_list.
 // - Return the pointer.
+bool CompareSumHandG(RouteModel::Node *Node1, RouteModel::Node *Node2)
+{
+    return ((Node1->h_value + Node1->g_value) < (Node2->h_value + Node2->g_value));
+}
 
 RouteModel::Node *RoutePlanner::NextNode() {
-
+    sort(open_list.begin(), open_list.end(), CompareSumHandG);
+    return open_list[0];
 }
 
 
